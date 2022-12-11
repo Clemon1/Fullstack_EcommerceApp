@@ -1,0 +1,191 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+:root {
+  --Bg-Background: #f1f5f7;
+  --Bg-Body: #ffffff;
+  --BtnPrimary: #092c4b;
+  --BtnDelete: #d90429;
+  --Blue1: #023e7d;
+  --textColor: #000814;
+}
+.errorDiv {
+  width: 100%;
+  height: 6vh;
+  transition: 0.9s all;
+  padding: 5px;
+  text-align: center;
+
+  border-radius: 5px;
+  background: var(--BtnDelete);
+  color: var(--Bg-Body);
+}
+.Navbar {
+  width: 100%;
+  height: 13vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 100px;
+}
+.navTitle {
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--textColor);
+}
+.Navbar ul {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.Navbar ul li {
+  list-style: none;
+  font-size: 18px;
+  color: var(--textColor);
+  font-weight: 500;
+}
+.navTitle2 {
+  display: flex;
+  gap: 10px;
+}
+.Btn_auth {
+  background: var(--Blue1);
+  color: var(--Bg-Body);
+  border: none;
+  font-size: 18px;
+  outline: none;
+  padding: 6px 8px;
+  border-radius: 9px;
+}
+.homeBody {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--Bg-Background);
+}
+
+.signUp {
+  width: 28%;
+  height: 60vh;
+  background: var(--Bg-Body);
+  border-radius: 9px;
+  padding: 27px 18px;
+}
+.signUp h3 {
+  text-align: center;
+  font-size: 27px;
+  font-weight: 600;
+}
+.Form_Control {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.Form_Control label {
+  font-size: 21px;
+  font-weight: 400;
+}
+.Form_Control input {
+  width: 100%;
+  padding: 6px;
+  border-radius: 9px;
+  border: #000814 2px solid;
+}
+.Form_Button {
+  width: 100%;
+  padding: 8px 0px;
+  border: none;
+  font-size: 18px;
+  font: 500;
+  outline: none;
+  border-radius: 9px;
+  background: var(--Blue1);
+  color: var(--Bg-Body);
+}
+.dashboard {
+  width: 100%;
+  background: #faedcd;
+  height: 100vh;
+}
+.dashBoard_header {
+  width: 100%;
+  height: 45vh;
+  display: flex;
+  justify-content: flex-start;
+  padding: 10px;
+  gap: 10px;
+}
+
+.Card {
+  width: 18%;
+  height: 60%;
+  padding: 18px;
+  border-radius: 4%;
+  background: #ffffff;
+}
+.Card h2 {
+  font-size: 25px;
+  font-weight: 500;
+}
+
+.Card p {
+  font-size: 25px;
+  font-weight: 600;
+}
+.productHome {
+  width: 100%;
+  height: 100vh;
+  background: #faedcd;
+  display: flex;
+  gap: 10px;
+  padding: 15px;
+  justify-content: flex-start;
+}
+
+.productCard {
+  width: 18%;
+  height: fit-content;
+  padding: 8px;
+  background: #ffffff;
+  border-radius: 10px;
+}
+
+.productCard img {
+  width: 100%;
+  height: 45vh;
+  object-fit: cover;
+}
+.productCard h2 {
+  font-size: 18px;
+  font-weight: 500;
+}
+.productCard p {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.productCreate {
+  width: 100%;
+  height: 100vh;
+  background: #faedcd;
+
+  padding: 10px;
+
+  align-items: center;
+  justify-content: center;
+}
+.prForm {
+  width: 30%;
+  height: fit-content;
+  background: #ffffff;
+  padding: 10px;
+  border-radius: 9px;
+}
