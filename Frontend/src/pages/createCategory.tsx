@@ -8,7 +8,7 @@ const CreateCategory = () => {
   const handleCategory = async (e: any) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/category", {
+      const res = await axios.post("http://localhost:4000/category", {
         Name,
       });
       await res.data;

@@ -18,6 +18,19 @@ const ProductCreate = () => {
     Name: string;
   }
 
+  useEffect(() => {
+    const fetchCategory = async () => {
+      try {
+        const res = await axios.get("http://localhost:4000/category");
+        await setData(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchCategory();
+  }, []);
+
+  //  Submitting the form
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const body = {
@@ -27,11 +40,18 @@ const ProductCreate = () => {
       category,
       ImageFile,
     };
+
+    const formData = new FormData();
+    for (const [key, value] of Object.entries(body)) {
+      formData.append(key, value as string);
+    }
+    console.log(formData);
+
     console.log(body);
     try {
       const res = await axios.post(
-        "http://localhost:5000/product/create",
-        body,
+        "http://localhost:4000/product/create",
+        formData,
       );
       await res.data;
       navigate("/products");
@@ -41,18 +61,6 @@ const ProductCreate = () => {
       console.log(err);
     }
   };
-
-  useEffect(() => {
-    const fetchCategory = async () => {
-      try {
-        const res = await axios.get("http://localhost:5000/category");
-        await setData(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchCategory();
-  }, []);
 
   return (
     <div className='productCreate'>
@@ -76,6 +84,7 @@ const ProductCreate = () => {
             <label>Product Image</label>
             <input
               type='file'
+              name='image'
               onChange={(e) =>
                 setImageFile(e.target.files ? e.target.files[0] : null)
               }
@@ -92,6 +101,7 @@ const ProductCreate = () => {
           <div className='Form_Control'>
             <label>Product Category</label>
             <select onChange={(e) => setCategory(e.target.value)} id=''>
+              <option value=''>categories</option>
               {data.map((data: handleCategory) => (
                 <option key={data._id} value={data._id}>
                   {data.Name}

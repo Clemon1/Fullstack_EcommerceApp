@@ -1,11 +1,8 @@
-import { logOut } from "../Redux/authSlice";
-import { useAppSelector, useAppDispatch } from "../Redux/hook";
-import { currentUser } from "../Redux/authSlice";
 import { Link } from "react-router-dom";
-
+import { useAppDispatch, useAppSelector } from "../Redux/hook";
+import { currentUser, logOut } from "../Redux/authSlice";
 const Navbar = () => {
   const dispatch = useAppDispatch();
-
   const User = useAppSelector(currentUser);
 
   const loggedOut = () => {
@@ -13,34 +10,39 @@ const Navbar = () => {
   };
   return (
     <nav className='Navbar'>
-      <div>
-        <p className='navTitle'>Electronic Shop</p>
-      </div>
-      <div className='navTitle2'>
-        <ul>
-          <li>Home</li>
-
-          <li>Product</li>
-          <li>About Us</li>
-        </ul>
+      <p className='navTitle'>BenStore</p>
+      {User ? (
         <>
-          {User ? (
-            <>
-              {User.email}
-
-              <button className='Btn_auth' onClick={loggedOut}>
-                LogOut
-              </button>
-            </>
-          ) : (
-            <>
-              <button className='Btn_auth'>Login</button>
-
-              <button className='Btn_auth'>SignUP</button>
-            </>
-          )}
+          <ul>
+            <Link to='/dashboard'>
+              <li>Home</li>
+            </Link>
+            <Link to='/products'>
+              <li>Products</li>
+            </Link>
+            <Link to='/category'>
+              <li>Categories</li>
+            </Link>
+          </ul>
+          <div className='navTitle2'>
+            <p> {User.email}</p>
+            <button onClick={loggedOut} className='Btn_auth'>
+              Logout
+            </button>
+          </div>
         </>
-      </div>
+      ) : (
+        <>
+          <div className='navTitle2'>
+            <Link to='/login'>
+              <button className='Btn_auth'>Login</button>
+            </Link>
+            <Link to='/'>
+              <button className='Btn_auth'>SignUp</button>
+            </Link>
+          </div>
+        </>
+      )}
     </nav>
   );
 };

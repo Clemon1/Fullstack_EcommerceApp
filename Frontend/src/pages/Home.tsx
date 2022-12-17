@@ -11,7 +11,7 @@ const Home = () => {
   const SignUp = async (e: any) => {
     try {
       e.preventDefault();
-      const req = await axios.post("http://localhost:5000/auth/register", body);
+      const req = await axios.post("http://localhost:4000/auth/register", body);
       navigate("/login");
       console.log(req.data);
     } catch (error) {

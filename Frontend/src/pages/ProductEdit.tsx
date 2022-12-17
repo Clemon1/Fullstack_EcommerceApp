@@ -5,6 +5,7 @@ import axios from "axios";
 const ProductEdit = () => {
   const [title, setTitle] = useState<string>("");
   const [price, setPrice] = useState<string>("");
+  const [data, setData] = useState<[]>([]);
   const [image, setImage] = useState<string>("");
   const [category, setCategory] = useState<string>("");
   const [description, setDescription] = useState<string>("");
@@ -12,18 +13,23 @@ const ProductEdit = () => {
   const [isError, setError] = useState<boolean>(false);
   const navigate = useNavigate();
   const { id } = useParams();
-  const [data, setData] = useState<any>({});
+  interface handleCategory {
+    _id: string;
+    Name: string;
+  }
+
   const body = {
     title,
     price,
-    image,
+
     description,
+    category,
   };
   useEffect(() => {
     const fetchSingleData = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/product/${id}`);
-        await setData(res.data);
+        const res = await axios.get(`http://localhost:4000/product/${id}`);
+        await res.data;
         setTitle(res.data.title);
         setPrice(res.data.price);
         // setImage(res.data.image)
@@ -37,10 +43,22 @@ const ProductEdit = () => {
     fetchSingleData();
   }, [id]);
 
+  useEffect(() => {
+    const fetchCategory = async () => {
+      try {
+        const res = await axios.get("http://localhost:4000/category");
+        await setData(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchCategory();
+  }, []);
+
   const handleEdit = async (e: any) => {
     e.preventDefault();
     try {
-      const res = await axios.put(`http://localhost:5000/product/${id}`, body);
+      const res = await axios.put(`http://localhost:4000/product/${id}`, body);
       await res.data;
       navigate("/products");
     } catch (error) {
@@ -61,14 +79,7 @@ const ProductEdit = () => {
               value={title}
             />
           </div>
-          <div className='Form_Control'>
-            <label>Product Image</label>
-            <input
-              type='file'
-              name='image'
-              // onChange={(e) => setImage(e.target.files[0])}
-            />
-          </div>
+
           <div className='Form_Control'>
             <label>Price</label>
             <input
@@ -80,7 +91,12 @@ const ProductEdit = () => {
           <div className='Form_Control'>
             <label>Product Category</label>
             <select onChange={(e) => setCategory(e.target.value)} name='' id=''>
-              <option value=''> Friuts</option>
+              <option value={category} label='Select New Category' />
+              {data.map((data: handleCategory) => (
+                <option key={data._id} value={data._id}>
+                  {data.Name}
+                </option>
+              ))}
             </select>
           </div>
           <div className='Form_Control'>

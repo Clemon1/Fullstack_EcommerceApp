@@ -18,7 +18,7 @@ const Products = () => {
 
   const fetchData = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/product");
+      const res = await axios.get("http://localhost:4000/product");
       await setData(res.data);
       console.log(res.data);
     } catch (error) {
@@ -29,7 +29,7 @@ const Products = () => {
     fetchData();
   }, []);
   const deleteProduct = async (id: any) => {
-    const res = await axios.delete(`http://localhost:5000/product/${id}`, {
+    const res = await axios.delete(`http://localhost:4000/product/${id}`, {
       data,
     });
   };
@@ -38,7 +38,7 @@ const Products = () => {
     <div className='productHome'>
       <div className=''>
         <Link to={"/products/create"}>
-          <button>Create</button>
+          <button className='Btn_auth'>Create</button>
         </Link>
       </div>
       {!data ? (
@@ -46,17 +46,19 @@ const Products = () => {
       ) : (
         data.map((data: product) => (
           <div className='productCard' key={data._id}>
-            <img src={`http://localhost:5000/${data.image}`} />
+            <img src={`http://localhost:4000/${data.image}`} />
             <Link to={`/products/${data._id}`}>
               <h2> {data.title}</h2>
             </Link>
-            <p> {data.price}</p>
+            <p> $ {data.price}</p>
             {/* <p> {data.category.name}</p> */}
             <Link to={`/products/edit/${data._id}`}>
-              <button> Edit Product</button>
+              <button className='Btn_edit'> Edit Product</button>
             </Link>
 
-            <button onClick={() => deleteProduct(data._id)}>Delete</button>
+            <button className='Btn_del' onClick={() => deleteProduct(data._id)}>
+              Delete
+            </button>
           </div>
         ))
       )}

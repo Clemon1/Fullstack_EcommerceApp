@@ -17,7 +17,7 @@ const SingleProduct = () => {
   const [data, setData] = useState<any>({});
   const fetchSingleData = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/product/${id}`);
+      const res = await axios.get(`http://localhost:4000/product/${id}`);
       await setData(res.data);
       console.log(res.data);
     } catch (error) {

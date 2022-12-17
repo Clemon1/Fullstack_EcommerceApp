@@ -8,7 +8,7 @@ const Categories = () => {
   const [data, setData] = useState<[]>([]);
   const fetchCategory = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/category");
+      const res = await axios.get("http://localhost:4000/category");
       await setData(res.data);
     } catch (error) {
       console.log(error);
