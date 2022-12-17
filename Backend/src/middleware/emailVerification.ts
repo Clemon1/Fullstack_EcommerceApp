@@ -28,7 +28,7 @@ export const sendVerifictionEmail = async (mail: details) => {
       to: mail.email, // list of receivers
       subject: "Verification Email", // Subject line
       // text: "Hello world?", // plain text body
-      html: `<p>  Welcome ${mail.firstName} !!! <a href="${process.env.HOST_URL}users/${mail._id}/verify/${mail.emailToken}"> Please click here to verify your email</a></p>`, // html body
+      html: `<p>  Welcome ${mail.firstName} !!! <a href="${process.env.HOST_URL}login"> Please click here to verify your email</a></p>`, // html body
     };
 
     // send mail with defined transport object

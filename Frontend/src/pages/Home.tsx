@@ -6,14 +6,16 @@ const Home = () => {
   const [firstName, setFirstName] = useState<String>("");
   const [lastName, setLastName] = useState<String>("");
   const [email, setEmail] = useState<String>("");
+  const [message, setMessage] = useState<String>("");
   const [password, setPassword] = useState<String>("");
   const body = { firstName, lastName, email, password };
   const SignUp = async (e: any) => {
     try {
       e.preventDefault();
-      const req = await axios.post("http://localhost:4000/auth/register", body);
-      navigate("/login");
-      console.log(req.data);
+      const res = await axios.post("http://localhost:4000/auth/register", body);
+      await res.data;
+      setMessage(res.data.message);
+      console.log();
     } catch (error) {
       console.log(error);
     }
@@ -23,6 +25,11 @@ const Home = () => {
     <div>
       <div className='homeBody'>
         <form className='signUp' action='POST' onSubmit={SignUp}>
+          {message && (
+            <div className='errorDiv1'>
+              <p>{message}</p>
+            </div>
+          )}
           <h3> SignUp</h3>
           <div className='Form_Control'>
             <label htmlFor=''>First Name</label>

@@ -16,15 +16,17 @@ const Register = () => {
   const [firstName, setFirstName] = useState<String>("");
   const [lastName, setLastName] = useState<String>("");
   const [email, setEmail] = useState<String>("");
+  const [message, setMessage] = useState<String>("");
   const [error, setError] = useState<boolean>(false);
   const [password, setPassword] = useState<String>("");
   const body = { firstName, lastName, email, password };
   const handleSignUp = async (e: any) => {
     try {
       e.preventDefault();
-      const req = await axios.post("http://localhost:4000/auth/register", body);
-      navigate("/login");
-      console.log(req.data);
+      const res = await axios.post("http://localhost:4000/auth/register", body);
+      await res.data;
+      setMessage(res.data.message);
+      console.log(res.data);
     } catch (error) {
       console.log(error);
     }
@@ -43,6 +45,18 @@ const Register = () => {
           boxShadow={"lg"}
         >
           <form action='' onSubmit={handleSignUp}>
+            {message && (
+              <Box
+                width={"100%"}
+                padding={2}
+                rounded={5}
+                color={"#ffffff"}
+                bg={"#29bf12"}
+              >
+                {" "}
+                {message}
+              </Box>
+            )}
             <Text
               fontSize={19}
               fontWeight={600}

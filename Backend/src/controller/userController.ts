@@ -25,6 +25,7 @@ const Register = async (req: Request, res: Response) => {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       email: req.body.email,
+      isVerified: true,
       password: hashPassword,
       emailToken: crypto.randomBytes(64).toString("hex"),
     });
@@ -33,7 +34,9 @@ const Register = async (req: Request, res: Response) => {
       sendVerifictionEmail(savedUser);
       res
         .status(200)
-        .json({ message: "Registration successful, please verify email" });
+        .json({
+          message: "Registration successful, please go to email and verify",
+        });
     }
   } catch (err: any) {
     res.status(500).json(err.message);

@@ -97,7 +97,9 @@ const Navbar = () => {
         </Button>
         {User ? (
           <Flex alignItems={"center"} gap={4}>
-            <Text fontWeight={500}> {User.email}</Text>
+            <Text fontSize={20} fontWeight={600}>
+              {User.firstName}
+            </Text>
             <Button
               onClick={() => dispatch(logOut())}
               paddingX={8}

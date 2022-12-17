@@ -24,6 +24,17 @@
   background: var(--BtnDelete);
   color: var(--Bg-Body);
 }
+.errorDiv1 {
+  width: 100%;
+  height: fit-content;
+  transition: 0.9s all;
+  padding: 5px;
+  text-align: center;
+  font-size: 16px;
+  border-radius: 5px;
+  background: #01815b;
+  color: var(--Bg-Body);
+}
 .dashName {
   padding: 10px;
   padding-left: 20px;

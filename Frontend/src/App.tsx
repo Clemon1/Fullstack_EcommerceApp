@@ -35,34 +35,94 @@ function App() {
           />
           <Route
             path='/dashboard'
-            element={User ? <Dashboard /> : <Navigate to={"/login"} />}
+            element={
+              User && User.isAdmin === true ? (
+                <Dashboard />
+              ) : (
+                <Navigate to={"/login"} />
+              )
+            }
           />
           <Route
             path='/products'
-            element={User ? <Products /> : <Navigate to={"/login"} />}
+            element={
+              User && User.isAdmin === true ? (
+                <Products />
+              ) : (
+                <Navigate to={"/login"} />
+              )
+            }
           />
           <Route
             path='/products/:id'
-            element={User ? <SingleProduct /> : <Navigate to={"/login"} />}
+            element={
+              User && User.isAdmin === true ? (
+                <SingleProduct />
+              ) : (
+                <Navigate to={"/login"} />
+              )
+            }
           />
           <Route
             path='/products/create'
-            element={User ? <ProductCreate /> : <Navigate to={"/login"} />}
+            element={
+              User && User.isAdmin === true ? (
+                <ProductCreate />
+              ) : (
+                <Navigate to={"/login"} />
+              )
+            }
           />
           <Route
             path='/products/edit/:id'
-            element={User ? <ProductEdit /> : <Navigate to={"/login"} />}
+            element={
+              User && User.isAdmin === true ? (
+                <ProductEdit />
+              ) : (
+                <Navigate to={"/login"} />
+              )
+            }
           />
           <Route
             path='/category'
-            element={User ? <Categories /> : <Navigate to={"/login"} />}
+            element={
+              User && User.isAdmin === true ? (
+                <Categories />
+              ) : (
+                <Navigate to={"/login"} />
+              )
+            }
           />
           <Route
             path='/category/create'
-            element={User ? <CreateCategory /> : <Navigate to={"/login"} />}
+            element={
+              User && User.isAdmin === true ? (
+                <CreateCategory />
+              ) : (
+                <Navigate to={"/login"} />
+              )
+            }
           />
-          <Route path='/users/:id/verify/:token' element={<EmailVerify />} />
-          <Route path='/order/:id' element={<EditOrder />} />
+          {/* <Route
+            path='/users/:id/verify/:token'
+            element={
+              User && User.isAdmin === true ? (
+                <EmailVerify />
+              ) : (
+                <Navigate to={"/login"} />
+              )
+            }
+          /> */}
+          <Route
+            path='/order/:id'
+            element={
+              User && User.isAdmin === true ? (
+                <EditOrder />
+              ) : (
+                <Navigate to={"/login"} />
+              )
+            }
+          />
         </Routes>
       </BrowserRouter>
     </div>

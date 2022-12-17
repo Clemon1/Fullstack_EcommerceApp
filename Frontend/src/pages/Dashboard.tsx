@@ -65,6 +65,7 @@ const Dashboard = () => {
       <div className='dashName'>
         {User && (
           <p>
+            Dashboard <br />
             Welcome {User.firstName} {User.lastName}
           </p>
         )}
