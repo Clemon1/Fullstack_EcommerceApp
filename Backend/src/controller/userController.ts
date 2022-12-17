@@ -1,28 +1,10 @@
 import { Request, Response } from "express";
 import User from "../model/userModel";
 import bcrypt from "bcrypt";
-import nodemailer from "nodemailer";
+import crypto from "crypto";
+
 import { sendVerifictionEmail } from "../middleware/emailVerification";
 
-// // Setting up nodemailer
-// async () => {
-//   let transporter = nodemailer.createTransport({
-//     host: "smtp-relay.sendinblue.com",
-//     port: 587,
-//     secure: false, // true for 465, false for other ports
-//     auth: {
-//       user: "clemonezeh@gmail.com", // generated ethereal user
-//       pass: "4vAMaGQpJw9nkhY2", // generated ethereal password
-//     },
-//   });
-//   let info = await transporter.sendMail({
-//     from: "clemonezeh@gmail", // sender address
-//     to: "nwankwoben5@gmail.com", // list of receivers
-//     subject: "Hello ✔", // Subject line
-//     text: "Hello world?", // plain text body
-//     html: "<b>Hello world?</b>", // html body
-//   });
-// };
 // Register Controller
 
 const Register = async (req: Request, res: Response) => {
@@ -44,10 +26,11 @@ const Register = async (req: Request, res: Response) => {
       lastName: req.body.lastName,
       email: req.body.email,
       password: hashPassword,
+      emailToken: crypto.randomBytes(64).toString("hex"),
     });
     const savedUser = await newUser.save();
     if (savedUser) {
-      sendVerifictionEmail(savedUser.email, savedUser.firstName, savedUser._id);
+      sendVerifictionEmail(savedUser);
       res
         .status(200)
         .json({ message: "Registration successful, please verify email" });
@@ -63,6 +46,14 @@ const Login = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
+
+    // If your not an admin you wont be authenticated
+    if (user?.isAdmin !== true) {
+      return res
+        .status(401)
+        .json("You are not an admin you cannot enter here ");
+    }
+
     if (!user) {
       return res.status(404).json("User does not exist");
     }
@@ -77,4 +68,40 @@ const Login = async (req: Request, res: Response) => {
   }
 };
 
-export { Register, Login };
+const usersLogin = async (req: Request, res: Response) => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json("User does not exist");
+    }
+    const ifPassword = await bcrypt.compare(password, user.password);
+    if (!ifPassword) {
+      return res.status(404).json("Invalid password");
+    }
+
+    res.status(200).json(user);
+  } catch (err: any) {
+    res.status(500).json(err.message);
+  }
+};
+
+// Verify Email
+const verifyLink = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const user = await User.find({
+      _id: id,
+      emailToken: req.params.emailToken,
+    });
+
+    await User.findOneAndUpdate({ _id: id, isVerified: true });
+
+    res.status(200).json({ message: "Email Verification Succesfully" });
+  } catch (err: any) {
+    res.status(500).json(err.message);
+  }
+};
+
+export { Register, Login, usersLogin, verifyLink };

@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import product from "../model/productModel";
+import User from "../model/userModel";
 
 // Get all product
 const getAllProduct = async (req: Request, res: Response) => {
@@ -37,7 +38,10 @@ const createProduct = async (req: Request, res: Response) => {
       category: req.body.category,
       image: req.file?.filename,
     });
+
     const savedProduct = await newProducs.save();
+    console.log(savedProduct);
+
     res.status(200).json(savedProduct);
   } catch (err: any) {
     res.status(500).json(err.message);

@@ -5,9 +5,7 @@ import bodyParser from "body-parser";
 import productRouter from "./routes/productRoute";
 import categoryRouter from "./routes/categoryRoute";
 import userRouter from "./routes/userRoutes";
-
-const PORT = 5000;
-
+import orderRouter from "./routes/orderRoutes";
 const app = express();
 
 const db = async () => {
@@ -33,9 +31,9 @@ app.use(express.static("./upload"));
 app.use("/auth", userRouter);
 app.use("/product", productRouter);
 app.use("/category", categoryRouter);
-
+app.use("/order", orderRouter);
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello TS World");
 });
 
-app.listen(PORT, () => console.log(`TS-APP listening to port ${PORT}`));
+app.listen(4000, () => console.log(`TS-APP listening to port 4000`));
